@@ -12,7 +12,6 @@ const routes: Routes = [
     component: CityComponent,
     data: { role: ['MANAGER', 'USER', 'ADMIN'] }
   },
-
   {
     path: 'muqar-type',
     component: MuqarTypeComponent,
