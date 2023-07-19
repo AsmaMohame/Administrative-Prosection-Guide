@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
-
+import * as errorMsg from 'src/assets/error-messages.json';
 
 @Injectable({
   providedIn: 'root'
