@@ -1,0 +1,14 @@
+<div class="nav-bar fCairo">
+    <div class="right">
+    <button mat-icon-button (click)="menuClick()">
+      <mat-icon class="icon-btn">menu</mat-icon>
+    </button>
+  </div>
+    <div class="left">
+        <span *ngIf="isLoggedIn" class="name ps-3">مرحبا, {{name}}</span>
+       
+        <button mat-icon-button  *ngIf="isLoggedIn"><i class="material-icons back fw-bold "
+          title="تسجيل الخروج">logout </i>
+      </button>
+    </div>
+</div>

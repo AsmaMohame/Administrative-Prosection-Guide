@@ -1,0 +1,138 @@
+.table-header {
+  margin: 0px;
+  background-color:#F5EDE2  !important;
+  font-weight: bold;
+  font-size: medium;
+  height: 50px;
+  font-family: 'Cairo', sans-serif !important;
+}
+
+.filer-header {
+  margin: 0px;
+  padding: 0px
+}
+
+.paginator {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mat-paginator-container {
+  display: flex;
+  justify-content: unset !important;
+}
+
+mat-header-cell {
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+  overflow: visible !important;
+}
+
+
+mat-cell {
+
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+  overflow: visible !important;
+}
+
+mat-header-cell:nth-child(3) {
+  padding: 0px 2px 0px 23px;
+}
+
+mat-cell:nth-child(3) {
+
+  padding: 0px 2px 0px 23px;
+}
+
+mat-header-cell:first-of-type:not(:only-of-type) {
+  padding-right: 3px !important;
+}
+
+mat-cell:first-of-type:not(:only-of-type) {
+  padding-right: 3px !important;
+}
+
+.no-default-none {
+  display: none !important;
+  height: unset;
+}
+
+.no-default-visibility {
+  display: flex !important;
+  height: unset;
+}
+
+.icon-search {
+  cursor: pointer;
+}
+
+.mat-paginator-range-label {
+  direction: ltr !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate !important;
+  border-spacing:  8px !important;
+}
+.table-row {
+  margin-bottom: 8px;
+}
+
+mat-cell {
+  padding: 16px 0 16px 0;
+  border-bottom: 2px solid #F5EDE2 !important;
+  border-top: 2px solid #F5EDE2 !important;
+  font-family: 'Cairo', sans-serif !important;
+}
+
+mat-cell:first-child {
+  border-right: 2px solid #F5EDE2;
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+mat-cell:last-child {
+  border-left: 2px solid #F5EDE2;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+mat-header-cell {
+  padding: 16px 0 16px 0;
+  border-bottom: 2px solid #F5EDE2 !important;
+  border-top: 2px solid #F5EDE2 !important;
+}
+
+mat-header-cell:first-child {
+  border-right: 2px solid #F5EDE2;
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+mat-header-cell:last-child {
+  border-left: 2px solid #F5EDE2;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+mat-row:nth-child(odd) {
+  background-color: white !important;
+  border-radius: 10px !important;
+}
+
+mat-row:nth-child(even) {
+  background-color: #F5EDE2 !important;
+  border-radius: 10px !important;
+}
+
+th {
+  background-color: rgb(240, 245, 245);
+}
+
+.setting{
+  color: rgb(118, 71, 9);
+}

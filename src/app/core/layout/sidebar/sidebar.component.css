@@ -1,0 +1,68 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  padding: 22px 0 22px 0;
+  color: #d51313;
+  font-size: 18px;
+  position: relative;
+  background-color: rgba(255, 248, 243, 1);
+}
+
+.title {
+  width: 50%;
+  margin-right: 10px;
+}
+
+.logo img {
+  order: 1;
+}
+
+.logo p {
+  order: 2;
+}
+
+.logo img {
+  width: 50px;
+
+}
+
+
+
+.sidenav_container {
+  min-width: 40px;
+  height: 100%;
+  overflow-y:scroll;
+  background: linear-gradient(to bottom, rgba(255, 248, 243, 1) 60%, rgb(252, 247, 245) 40%);
+  box-shadow: 10px 10px;
+}
+
+
+.active a,
+.active a:hover {
+  /*color: rgba(0,0,0,.6) !important;*/
+  /*background-color: #fff !important;*/
+  box-shadow: 0 4px 20px 0px rgba(241, 7, 7, 0.14), 0 7px 10px -5px rgba(88, 60, 77, 0.4);
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;
+  -ms-transition: all 400ms;
+  -o-transition: all 400ms;
+  transition: all 400ms;
+  border: 50px solid rebeccapurple;
+}
+
+
+.hover:hover,
+.hover:active {
+  background-color: rgba(212, 194, 172, 0.541);
+  border-radius: 40px;
+  width: 90%;
+}
+
+.text-space,
+.icon,
+.title
+ {
+  color: #8b4513;
+  z-index: 1;
+  font-weight: bold;
+}

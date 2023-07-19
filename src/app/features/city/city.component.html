@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row pt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">{{ !form.controls.id.value ? 'library_add' : 'mode_edit' }}</i>
+            <p> {{ !form.controls.id.value ? 'اضافه  مدينة' : 'تعديل  مدينة' }}</p>
+          </div>
+          <div class="card-content mt-5">
+            <form [formGroup]="form" autocomplete="off" novalidate class="p-4">
+              <div
+                class="me-3"
+                fxLayout="row wrap"
+                fxLayoutAlign="start center"
+                fxLayoutAlign.xs="center center"
+                fxLayoutAlign.sm="center center"
+                fxLayoutGap="3%"
+              >
+                <app-input-select
+                  [control]="governorate"
+                  [data]="governorates"
+                  [fieldName]="'المحافظه'"
+                  fxFlex="25"
+                  fxFlex.sm="45"
+                  fxFlex.lt-sm="90"
+                  viewedValue="arabicName"
+                ></app-input-select>
+                <app-input-text
+                  [arabicCharOnly]="true"
+                  [control]="arabicName"
+                  [type]="'text'"
+                  [noWhiteSpace]="true"
+                  [fieldName]="'الاسم بالعربي'"
+                  fxFlex="25"
+                  fxFlex.sm="45"
+                  fxFlex.lt-sm="90"
+                  [maxLength]="50"
+                ></app-input-text>
+                <app-input-text
+                  [englishCharOnly]="true"
+                  [control]="englishName"
+                  [type]="'text'"
+                  [noWhiteSpace]="true"
+                  class="input-width"
+                  [fieldName]="'الاسم بالانجليزي'"
+                  fxFlex="25"
+                  fxFlex.sm="45"
+                  fxFlex.lt-sm="90"
+                  [maxLength]="50"
+                ></app-input-text>
+              </div>
+            </form>
+  
+            <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="3%">
+              <button (click)="save()" color="Basic" mat-raised-button fxFlex="15" fxFlex.xs="45" [disabled]="submitted">
+                {{ form.controls.id.value ? 'تعديل' : 'اضافة' }}
+              </button>
+              <button (click)="clearForm()" color="warn" mat-raised-button fxFlex="15" fxFlex.xs="45"> مسح </button>
+            </div>
+  
+            <br />
+            <div class="row mt-5 mb-5" dir="rtl" >
+              <div class="mat-elevation-z8">
+                <app-data-grid
+                  (loadData)="pageChanged($event)"
+                  [columns]="columns"
+                  [data]="city"
+                  [displayedColumns]="displayedColumns"
+                  [totalRows]="totalRowFirst"
+                  [page]="page"
+                >
+                  <ng-template let-item>
+                    <a mat-icon-button
+                      ><mat-icon matTooltip="تعديل" color="primary" (click)="fetch(item)">mode_edit</mat-icon></a
+                    >
+                    <a mat-icon-button
+                      ><mat-icon matTooltip="حذف" color="warn" (click)="delete(item.id)">delete_forever</mat-icon></a
+                    >
+                    <a mat-icon-button>
+                      <mat-icon matTooltip="اضافة قسم " color="primary" (click)="navigate(item.id)">
+                        library_add</mat-icon
+                      >
+                    </a>
+                  </ng-template>
+  
+  
+                 
+                </app-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,25 @@
+<table mat-table [dataSource]="dataSource" fxFlexFill class="table fCairo table-striped">
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+    <mat-header-cell *matHeaderCellDef class="table-header"
+      style="overflow: visible;text-align: center;padding-left:3px;width: 50%;">
+      
+      {{ column.header }}
+      <mat-icon class="setting" *ngIf="column.columnDef === 'Actions' && isVisible" >settings</mat-icon>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let element; let i = index"
+      style="overflow: visible;text-align: center;padding-left:3px;width: 50%;">
+      {{ column.columnDef === 'position' ? i + 1 : column.cell(element) }}
+
+      <div *ngIf="column.columnDef === 'Actions'">
+        <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: element }"></ng-template>
+      </div>
+    </mat-cell>
+    
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'table-row': true}"></mat-row>
+</table>
+<mat-paginator [length]="totalRows" [pageIndex]="page" [pageSize]="size" (page)="pageChanged($event)"
+  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements" class="paginator fCairo">
+</mat-paginator>

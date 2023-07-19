@@ -1,0 +1,21 @@
+<mat-dialog-content>
+  <div class="modal fade">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header flex-column">
+          <div class="icon-box">
+            <i class="material-icons">&#xE5CD;</i>
+          </div>
+          <h4 class="modal-title w-100">{{ data?.header }}</h4>
+        </div>
+        <div class="modal-body mt-4">
+          <p>{{ data?.body }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close>إلغاء</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()"> مسح </button>
+</mat-dialog-actions>

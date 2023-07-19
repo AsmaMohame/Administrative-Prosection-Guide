@@ -1,0 +1,89 @@
+.admin-name {
+    font-style: normal;
+    font-size: 22px;
+    color: rgba(118, 76, 30, 1);
+}
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+mat-toolbar,
+.main {
+    background-image: linear-gradient(to left, #F5EDE2, #FFFFFF);
+    border-end-start-radius: 15px;
+    border: none;
+    position: absolute;
+    float: left;
+    left: 0;
+    width: 95%;
+    height: 13%;
+}
+
+.title{
+    color: rgba(118, 76, 30, 1);
+    font-weight: bold;   
+}
+
+.icon {
+    color: rgba(118, 76, 30, 1);
+    font-size: 1.7rem;
+    z-index: 1; 
+}
+
+.delet {
+    color: red;
+}
+
+.mat-form-field {
+    border-radius: 50% !important;
+}
+
+.right {
+    float: right;
+    margin-right: 10px;
+}
+
+.left {
+    position: absolute;
+    float: left;
+    left: 0;
+    margin-left: 25px;
+}
+
+::ng-deep .search .mdc-notched-outline__leading {
+    border-color: rgba(212, 194, 172, 0.541) !important;
+    border-width: 3px !important;
+    color: rgba(243, 238, 233, 0.541) !important;
+    height: 50% !important;
+  }
+  
+  ::ng-deep .search .mdc-notched-outline__notch {
+    border-color: rgba(212, 194, 172, 0.541) !important;
+    border-width: 3px !important;
+    color: rgba(236, 231, 225, 0.541) !important;
+    height: 50% !important;
+  }
+  
+  ::ng-deep .search  .mdc-notched-outline__trailing {
+    border-color: rgba(212, 194, 172, 0.541) !important;
+    border-width: 3px !important;
+    color: rgba(239, 234, 227, 0.541) !important;
+    height: 50% !important;  
+  }
+
+
+  input {
+      text-align: end;
+      color: rgba(118, 76, 30, 1) !important;
+  }
+
+  .name {
+      font-size: 23px;
+      color: rgba(118, 76, 30, 1) !important;
+      font-weight: bold;
+  }
+  .back {
+    color: #8b4513;
+    cursor: pointer;
+  }
