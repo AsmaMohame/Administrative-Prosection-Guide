@@ -22,7 +22,6 @@ export class MuqarTypeComponent implements OnInit {
   size: number = 10;
   page: number = 0;
   totalRows: number = 0;
-  totalRowFirst: number = 0;
   form!: FormGroup;
   arabicName!: FormControl;
   englishName!: FormControl;
@@ -59,13 +58,9 @@ export class MuqarTypeComponent implements OnInit {
       version: [0],
       arabicName: ['', [Validators.required, Validators.maxLength(50)]],
       englishName: [null, [Validators.maxLength(50)]],
-      governorate: [null, Validators.required],
-      enabled: [false, Validators.required]
     });
     this.arabicName = this.form.controls.arabicName as FormControl;
     this.englishName = this.form.controls.englishName as FormControl;
-    this.enabled = this.form.controls.enabled as FormControl;
-    this.governorate = this.form.controls.governorate as FormControl;
     this.getMuqarType();
 
   }
@@ -74,14 +69,12 @@ export class MuqarTypeComponent implements OnInit {
   getMuqarType(): void {
     this.muqarTypeService.getList({  page: this.page, size: this.size }).subscribe(res => {
       this.muqarType = res.data;
-      this.totalRowFirst = res.pagination.itemCount;
+      this.totalRows = res.pagination?.itemCount;
     });
   }
 
   save(): void {
-    if (!this.form.controls.enabled.valid) {
-      this.form.controls.enabled.setValue(false);
-    }
+   
     if (this.form.valid) {
       this.submitted = true;
       this.form.controls.id.value ? this.update() : this.add();

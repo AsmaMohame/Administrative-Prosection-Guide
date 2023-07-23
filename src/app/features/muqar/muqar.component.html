@@ -4,9 +4,9 @@
         <div class="card">
           <div class="card-header">
             <i class="material-icons">{{ !form.controls.id.value ? 'library_add' : 'mode_edit' }}</i>
-            <p> {{ !form.controls.id.value ? 'اضافه  مدينة' : 'تعديل  مدينة' }}</p>
+            <p> {{ !form.controls.id.value ? 'اضافه  مقر' : 'تعديل  مقر' }}</p>
           </div>
-          <div class="card-content mt-5">
+          <div class="card-content">
             <form [formGroup]="form" autocomplete="off" novalidate class="p-4">
               <div
                 class="me-3"
@@ -16,6 +16,18 @@
                 fxLayoutAlign.sm="center center"
                 fxLayoutGap="3%"
               >
+
+              <app-input-text
+              [arabicCharOnly]="true"
+              [control]="name"
+              [type]="'text'"
+              [noWhiteSpace]="true"
+              [fieldName]="'اسم المقر'"
+              fxFlex="25"
+              fxFlex.sm="45"
+              fxFlex.lt-sm="90"
+              [maxLength]="50"
+            ></app-input-text>
                 <app-input-select
                   [control]="governorate"
                   [data]="governorates"
@@ -25,29 +37,82 @@
                   fxFlex.lt-sm="90"
                   viewedValue="arabicName"
                 ></app-input-select>
+                <app-input-select
+                [control]="cityName"
+              
+                [fieldName]="'المدينة'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                viewedValue="arabicName"
+              ></app-input-select>
+
+              <app-input-select
+                [control]="muqarType"
+               
+                [fieldName]="'نوع المقر'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                viewedValue="arabicName"
+              ></app-input-select>
+            
                 <app-input-text
-                  [arabicCharOnly]="true"
-                  [control]="arabicName"
-                  [type]="'text'"
-                  [noWhiteSpace]="true"
-                  [fieldName]="'الاسم بالعربي'"
-                  fxFlex="25"
-                  fxFlex.sm="45"
-                  fxFlex.lt-sm="90"
-                  [maxLength]="50"
-                ></app-input-text>
-                <app-input-text
-                  [englishCharOnly]="true"
-                  [control]="englishName"
+                  [control]="address"
                   [type]="'text'"
                   [noWhiteSpace]="true"
                   class="input-width"
-                  [fieldName]="'الاسم بالانجليزي'"
+                  [fieldName]="'العنوان'"
                   fxFlex="25"
                   fxFlex.sm="45"
                   fxFlex.lt-sm="90"
                   [maxLength]="50"
                 ></app-input-text>
+
+                <app-input-text
+                  [control]="competence"
+                  [type]="'text'"
+                  [noWhiteSpace]="true"
+                  class="input-width"
+                  [fieldName]="'الكفاءة'"
+                  fxFlex="25"
+                  fxFlex.sm="45"
+                  fxFlex.lt-sm="90"
+                  [maxLength]="50"
+                ></app-input-text>
+                <app-input-text
+                  [control]="email"
+                  [type]="'text'"
+                  [noWhiteSpace]="true"
+                  class="input-width"
+                  [fieldName]="'الايميل'"
+                  fxFlex="25"
+                  fxFlex.sm="45"
+                  fxFlex.lt-sm="90"
+                  [maxLength]="50"
+                ></app-input-text>
+                <app-input-text
+                [control]="phone"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                class="input-width"
+                [fieldName]="'رقم تليفون 1'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="50"
+              ></app-input-text>
+              <app-input-text
+              [control]="phoneSecond"
+              [type]="'text'"
+              [noWhiteSpace]="true"
+              class="input-width"
+              [fieldName]="'رقم تليفون 2'"
+              fxFlex="25"
+              fxFlex.sm="45"
+              fxFlex.lt-sm="90"
+              [maxLength]="50"
+            ></app-input-text>
               </div>
             </form>
   
@@ -64,9 +129,9 @@
                 <app-data-grid
                   (loadData)="pageChanged($event)"
                   [columns]="columns"
-                  [data]="city"
+                  [data]="muqar"
                   [displayedColumns]="displayedColumns"
-                  [totalRows]="totalRows"
+                  [totalRows]="totalRowFirst"
                   [page]="page"
                 >
                   <ng-template let-item>

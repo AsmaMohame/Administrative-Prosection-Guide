@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { City } from "src/app/domain/city/model/city";
 import { MuqarType } from "src/app/domain/muqar-typt/model/muqar-type";
+import { Muqar } from "src/app/domain/muqar/model/muqar";
 import { Column } from "src/app/shared/components/data-grid/column";
 
 
@@ -57,7 +58,66 @@ export class TableDataService {
   };
 
   
+  getMuqar = () => {
+    this.columns = [
+      {
+        columnDef: 'name',
+        header: 'اسم المقر ',
+        cell: (element: Muqar) => element.name
+      },
+      {
+        columnDef: 'governorate',
+        header: 'المحافظة',
+        cell: (element: Muqar) => element.governorate.arabicName
+      },
 
+      {
+        columnDef: 'city',
+        header: 'المدينة',
+        cell: (element: Muqar) => element.city.englishName
+      },
+
+      {
+        columnDef: 'muqar-type',
+        header:'نوع المقر',
+        cell: (element: Muqar) => element.muqarType.englishName
+      },
+
+      {
+        columnDef: 'competence',
+        header: 'الكفاءة ',
+        cell: (element: Muqar) => element.competence
+      },
+
+      {
+        columnDef: 'address',
+        header: 'العنوان',
+        cell: (element: Muqar) => element.city.englishName
+      },
+
+      {
+        columnDef: 'email',
+        header: 'البريد الالكتروني',
+        cell: (element: Muqar) => element.email
+      },
+
+      {
+        columnDef: 'phone',
+        header: 'رقم تليفون 1',
+        cell: (element: Muqar) => element.phone
+      },
+
+      {
+        columnDef: ' phoneSecond',
+        header: 'رقم تليفون 2',
+        cell: (element: Muqar) => element.phoneSecond
+      },
+
+      { columnDef: 'Actions', header: '', cell: (element: MuqarType) => `` },
+      { columnDef: 'Search', header: '', cell: (element:MuqarType) => `` }
+    ];
+    this.displayedColumns = this.columns.map(c => c.columnDef);
+  };
 
  
   get tableColumns() {

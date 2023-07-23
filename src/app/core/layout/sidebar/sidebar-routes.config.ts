@@ -7,6 +7,13 @@ export const ROUTES = [
   },
 
   {
+    path: 'muqar',
+    title: ' المقرات',
+    icon: 'home',
+    children: null,
+  },
+
+  {
     path: 'muqar-type',
     title: 'انواع المقرات',
     icon: 'home',
