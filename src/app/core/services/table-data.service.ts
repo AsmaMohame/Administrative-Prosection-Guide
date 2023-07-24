@@ -34,7 +34,6 @@ export class TableDataService {
       },
 
       { columnDef: 'Actions', header: '', cell: (element: City) => `` },
-      { columnDef: 'Search', header: '', cell: (element: City) => `` }
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
   };
@@ -53,7 +52,6 @@ export class TableDataService {
       },
 
       { columnDef: 'Actions', header: '', cell: (element: MuqarType) => `` },
-      { columnDef: 'Search', header: '', cell: (element: MuqarType) => `` }
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
   };
