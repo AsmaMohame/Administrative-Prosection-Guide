@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './core/services/config.service';
+import { AuthModule } from './auth/auth.module';
 
 
 export function configServiceFactory(config: ConfigService): () => Promise<boolean> {
@@ -21,6 +22,7 @@ export function configServiceFactory(config: ConfigService): () => Promise<boole
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    AuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
     
