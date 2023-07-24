@@ -24,10 +24,19 @@ export class InputSelectComponent implements OnInit {
   @Input() offerLabel : boolean =false
   @Input() chooseLabel : boolean =false
   @Input() tripLabel: boolean=false;
+  @Input() govLabel: boolean=false;
+  @Input() cityLabel: boolean=false;
+  @Input() muqarLabel: boolean=false;
+  @Input() option: boolean=false;
+  @Output() searchEvent = new EventEmitter<string>();
   // @ts-ignore
   compareFu = (a, b): boolean => a?.id === b?.id;
   constructor() {}
 
   ngOnInit(): void {}
+
+  search(){
+    this.searchEvent.emit()
+  }
 
 }

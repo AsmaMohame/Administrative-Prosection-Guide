@@ -25,18 +25,9 @@ import { Column } from './column';
 export class DataGridComponent<T> implements OnChanges, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ContentChild(TemplateRef) templateRef!: TemplateRef<unknown>;
-  @ContentChild("fieldArabicName") fieldArabicName!: TemplateRef<unknown>;
-  @ContentChild("userNameField")userNameField!: TemplateRef<unknown>;
-  @ContentChild("NationalId") NationalId!: TemplateRef<unknown>;
   @ContentChild("governorateField") governorateField!: TemplateRef<unknown>;
-  @ContentChild("transactionField") transactionField!: TemplateRef<unknown>;
-  @ContentChild("officeField") officeField!: TemplateRef<unknown>;
-  @ContentChild("investigationAgencyName") investigationAgencyName!: TemplateRef<unknown>;
-  @ContentChild("selectContent") selectContent!: TemplateRef<unknown>;
-  @ContentChild("incoming") incoming!: TemplateRef<unknown>;
-  @ContentChild("outcoming") outcoming!: TemplateRef<unknown>;
-  @ContentChild("document") document!: TemplateRef<unknown>;
-  
+  @ContentChild("cityField") cityField!: TemplateRef<unknown>;
+  @ContentChild("muqarTypeField") muqarTypeField!: TemplateRef<unknown>;
 
   @Input() data: T[] = [];
   @Input() displayedColumns!: string[];
