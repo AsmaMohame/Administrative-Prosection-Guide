@@ -1,10 +1,11 @@
 .table-header {
   margin: 0px;
-  background-color:#F5EDE2  !important;
+  background-color: #F5EDE2 !important;
   font-weight: bold;
   font-size: medium;
   height: 50px;
   font-family: 'Cairo', sans-serif !important;
+  margin-bottom: 8px;
 }
 
 .filer-header {
@@ -31,7 +32,6 @@ mat-header-cell {
 
 
 mat-cell {
-
   display: flex !important;
   justify-content: center !important;
   text-align: center !important;
@@ -67,6 +67,8 @@ mat-cell:first-of-type:not(:only-of-type) {
 
 .icon-search {
   cursor: pointer;
+  color: rgb(118, 71, 9);
+  ;
 }
 
 .mat-paginator-range-label {
@@ -76,8 +78,9 @@ mat-cell:first-of-type:not(:only-of-type) {
 table {
   width: 100%;
   border-collapse: separate !important;
-  border-spacing:  8px !important;
+  border-spacing: 8px !important;
 }
+
 .table-row {
   margin-bottom: 8px;
 }
@@ -133,6 +136,6 @@ th {
   background-color: rgb(240, 245, 245);
 }
 
-.setting{
+.setting {
   color: rgb(118, 71, 9);
 }

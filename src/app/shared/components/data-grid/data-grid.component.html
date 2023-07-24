@@ -2,9 +2,12 @@
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
     <mat-header-cell *matHeaderCellDef class="table-header"
       style="overflow: visible;text-align: center;padding-left:3px;width: 50%;">
-      
+
       {{ column.header }}
-      <mat-icon class="setting" *ngIf="column.columnDef === 'Actions' && isVisible" >settings</mat-icon>
+      <mat-icon class="setting" *ngIf="column.columnDef === 'Actions' && isVisible">settings</mat-icon>
+
+      <mat-icon (click)="toggleOpen()" matTooltip="بحث" *ngIf="column.columnDef === 'Search' && isVisible"
+        class=" icon-search ">search</mat-icon>
     </mat-header-cell>
 
     <mat-cell *matCellDef="let element; let i = index"
@@ -15,11 +18,30 @@
         <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: element }"></ng-template>
       </div>
     </mat-cell>
-    
   </ng-container>
+
+  <ng-container *ngFor="let Filter of displayedColumnFilter" [matColumnDef]="Filter">
+    <mat-header-cell *matHeaderCellDef class="filer-header">
+      <mat-icon (click)="toggleClose()" matTooltip="انهاء البحث" *ngIf="Filter === 'Search_'"
+        class=" icon-search ">search_off</mat-icon>
+
+      <div *ngIf="Filter === 'governorate_'" class="mt-3 ">
+        <ng-template [ngTemplateOutlet]="governorateField"></ng-template>
+      </div>
+      <div *ngIf="Filter === 'city_'" class="mt-3 me-5 ms-5 ">
+        <ng-template [ngTemplateOutlet]="cityField"></ng-template>
+      </div>
+      <div *ngIf="Filter === 'muqar-type_'" class="mt-3">
+        <ng-template [ngTemplateOutlet]="muqarTypeField"></ng-template>
+      </div>
+    </mat-header-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-header-row [ngClass]="[headerStyle]" *matHeaderRowDef="displayedColumnFilter"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'table-row': true}"></mat-row>
 </table>
 <mat-paginator [length]="totalRows" [pageIndex]="page" [pageSize]="size" (page)="pageChanged($event)"
-  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements" class="paginator fCairo">
+  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"
+  class="paginator fCairo">
 </mat-paginator>

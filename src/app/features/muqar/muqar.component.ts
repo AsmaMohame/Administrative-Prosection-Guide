@@ -22,10 +22,10 @@ import { Column } from 'src/app/shared/components/data-grid/column';
 })
 export class MuqarComponent implements OnInit {
   displayedColumns: string[] = [];
-  displayedColumnFilter:any
+  displayedColumnFilter: any
   columns: Column[] = [];
   muqar!: Muqar[];
-  citys:City[];
+  citys: City[];
   size: number = 10;
   page: number = 0;
   form!: FormGroup;
@@ -43,7 +43,15 @@ export class MuqarComponent implements OnInit {
   submitted: boolean = false;
   governorates: Governorate[];
   MuqarTypes: MuqarType[];
-  
+  searchForm: FormGroup
+  cityArabicName: FormControl;
+  muqarTypeName: FormControl;
+  governorateName: FormControl;
+  govLabel: boolean = true;
+  cityLabel: boolean = true;
+  muqarLabel: boolean = true;
+  option: boolean = true;
+
   constructor(
     private tableDataService: TableDataService,
     private formBuilder: FormBuilder,
@@ -51,9 +59,9 @@ export class MuqarComponent implements OnInit {
     private validationMessagesService: ValidationMessagesService,
     private cityRepository: CityService,
     private governorateRepository: GovernorateService,
-    private muqarService : MuqarService,
-    private muqarTypeService : MuqarTypeService,
-  ) {}
+    private muqarService: MuqarService,
+    private muqarTypeService: MuqarTypeService,
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -62,7 +70,9 @@ export class MuqarComponent implements OnInit {
     this.tableDataService.getMuqar();
     this.columns = this.tableDataService.tableColumns;
     this.displayedColumns = this.tableDataService.displayColumns;
+    this.displayedColumnFilter = this.tableDataService.displayColumnFilter
     this.getMuqar();
+    this.formToSearch()
   }
 
   initForm(): void {
@@ -70,7 +80,7 @@ export class MuqarComponent implements OnInit {
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
-      map: ['', [Validators.required]],
+      map: [''],
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,4}$')]],
       competence: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
@@ -92,29 +102,50 @@ export class MuqarComponent implements OnInit {
     this.city = this.form.controls.city as FormControl;
     this.muqarType = this.form.controls.muqarType as FormControl;
 
-    this.governorate.valueChanges.subscribe(res =>{
+    this.governorate.valueChanges.subscribe(res => {
       this.city.reset();
-      this.cityRepository.getCityByGovernorateId(res.id).subscribe(res => {
-        this.citys= res.data;
-      });
+      if (res) {
+        this.cityRepository.getCityByGovernorateId(res.id).subscribe(res => {
+          this.citys = res.data;
+        });
+      }
     })
-  
+  }
+
+  formToSearch() {
+    this.searchForm = this.formBuilder.group({
+      city: [''],
+      governorate: [''],
+      muqarType: ['']
+    });
+    this.cityArabicName = this.searchForm.controls.city as FormControl
+    this.governorateName = this.searchForm.controls.governorate as FormControl
+    this.muqarTypeName = this.searchForm.controls.muqarType as FormControl
+
+    this.governorateName.valueChanges.subscribe(res => {
+      this.cityArabicName.reset();
+      if (res) {
+        this.cityRepository.getCityByGovernorateId(res.id).subscribe(res => {
+          this.citys = res.data;
+        });
+      }
+    })
   }
 
   getGovernorate(): void {
-    this.governorateRepository.getList({ size: this.size, page: this.page }).subscribe(res => {
+    this.governorateRepository.getList(this.arguments()).subscribe(res => {
       this.governorates = res.data;
     });
   }
 
   getMuqarType(): void {
-    this.muqarTypeService.getList({  page: this.page, size: this.size }).subscribe(res => {
+    this.muqarTypeService.getList(this.arguments()).subscribe(res => {
       this.MuqarTypes = res.data;
     });
   }
 
   getMuqar(): void {
-    this.muqarService.getList({  page: this.page, size: this.size }).subscribe(res => {
+    this.muqarService.getList(this.arguments()).subscribe(res => {
       this.muqar = res.data;
     });
   }
@@ -181,6 +212,61 @@ export class MuqarComponent implements OnInit {
 
   clearForm(): void {
     this.form.reset();
+  }
+
+  arguments(): any {
+    if (this.cityArabicName?.value && this.governorateName?.value && this.muqarTypeName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        cityId: this.cityArabicName?.value.id,
+        governorateId: this.governorateName?.value.id,
+        muqarTypeId: this.muqarTypeName?.value.id
+      };
+    else if (this.cityArabicName?.value && this.governorateName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        cityId: this.cityArabicName?.value.id,
+        governorateId: this.governorateName?.value.id,
+      };
+    else if (this.governorateName?.value && this.muqarTypeName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        governorateId: this.governorateName?.value.id,
+        muqarTypeId: this.muqarTypeName?.value.id
+      };
+    else if (this.cityArabicName?.value && this.muqarTypeName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        cityId: this.cityArabicName?.value.id,
+        muqarTypeId: this.muqarTypeName?.value.id
+      };
+    else if (this.cityArabicName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        arabicName: this.cityArabicName?.value.id,
+      };
+    else if (this.governorateName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        governorateId: this.governorateName?.value.id
+      }; else if (this.muqarTypeName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        muqarTypeId: this.muqarTypeName?.value.id
+      };
+    else return { page: this.page, size: this.size };
+  }
+
+  search(): void {
+    this.page = 0;
+    this.getMuqar()
   }
 
 }

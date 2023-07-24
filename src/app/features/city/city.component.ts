@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/core/services/message.service';
 import { TableDataService } from 'src/app/core/services/table-data.service';
@@ -34,6 +35,7 @@ export class CityComponent implements OnInit {
   cityArabicName!: FormControl;
   cityGovernorate!: FormControl;
   governorates!: Governorate[];
+  option: boolean = true;
   constructor(
     private tableDataService: TableDataService,
     private formBuilder: FormBuilder,
@@ -45,12 +47,13 @@ export class CityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.getCity()
     this.initForm();
     this.getAllGovernorate();
     this.tableDataService.getCity();
     this.columns = this.tableDataService.tableColumns;
     this.displayedColumns = this.tableDataService.displayColumns;
+    this.displayedColumnFilter = this.tableDataService.displayColumnFilter;
   }
 
   initForm(): void {
@@ -66,8 +69,6 @@ export class CityComponent implements OnInit {
     this.englishName = this.form.controls.englishName as FormControl;
     this.enabled = this.form.controls.enabled as FormControl;
     this.governorate = this.form.controls.governorate as FormControl;
-    this.getCity();
-
   }
 
   getGovernorate(): void {

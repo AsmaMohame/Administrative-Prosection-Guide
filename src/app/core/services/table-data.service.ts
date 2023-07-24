@@ -12,6 +12,7 @@ import { Column } from "src/app/shared/components/data-grid/column";
 export class TableDataService {
   columns: Column[] = [];
   displayedColumns: string[] = [];
+  displayedColumnFilter: string[] = [];
   constructor() { }
 
   getCity = () => {
@@ -52,12 +53,12 @@ export class TableDataService {
       },
 
       { columnDef: 'Actions', header: '', cell: (element: MuqarType) => `` },
-      { columnDef: 'Search', header: '', cell: (element:MuqarType) => `` }
+      { columnDef: 'Search', header: '', cell: (element: MuqarType) => `` }
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
   };
 
-  
+
   getMuqar = () => {
     this.columns = [
       {
@@ -79,8 +80,8 @@ export class TableDataService {
 
       {
         columnDef: 'muqar-type',
-        header:'نوع المقر',
-        cell: (element: Muqar) => element.muqarType.englishName
+        header: 'نوع المقر',
+        cell: (element: Muqar) => element.muqarType.arabicName
       },
 
       {
@@ -107,19 +108,13 @@ export class TableDataService {
         cell: (element: Muqar) => element.phone
       },
 
-      {
-        columnDef: ' phoneSecond',
-        header: 'رقم تليفون 2',
-        cell: (element: Muqar) => element.phoneSecond
-      },
-
       { columnDef: 'Actions', header: '', cell: (element: MuqarType) => `` },
-      { columnDef: 'Search', header: '', cell: (element:MuqarType) => `` }
+      { columnDef: 'Search', header: '', cell: (element: MuqarType) => `` }
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
+    this.displayedColumnFilter = this.displayedColumns.map((x) => x + '_');
   };
 
- 
   get tableColumns() {
     return this.columns;
   }
@@ -128,5 +123,8 @@ export class TableDataService {
     return this.displayedColumns;
   }
 
+  get displayColumnFilter() {
+    return this.displayedColumnFilter;
+  }
 
 }
