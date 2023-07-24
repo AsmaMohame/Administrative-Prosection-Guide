@@ -18,80 +18,77 @@
               >
 
               <app-input-text
-              [arabicCharOnly]="true"
-              [control]="name"
-              [type]="'text'"
-              [noWhiteSpace]="true"
-              [fieldName]="'اسم المقر'"
-              fxFlex="25"
-              fxFlex.sm="45"
-              fxFlex.lt-sm="90"
-              [maxLength]="50"
+                [arabicCharOnly]="true"
+                [control]="name"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                [fieldName]="'اسم المقر'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="50"
             ></app-input-text>
+              <app-input-select
+                [control]="governorate"
+                [data]="governorates"
+                [fieldName]="'المحافظه'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                viewedValue="arabicName"
+              ></app-input-select>
                 <app-input-select
-                  [control]="governorate"
-                  [data]="governorates"
-                  [fieldName]="'المحافظه'"
-                  fxFlex="25"
-                  fxFlex.sm="45"
-                  fxFlex.lt-sm="90"
-                  viewedValue="arabicName"
-                ></app-input-select>
-                <app-input-select
-                [control]="cityName"
-              
+                [control]="city"
+                [data]="citys"
                 [fieldName]="'المدينة'"
                 fxFlex="25"
                 fxFlex.sm="45"
                 fxFlex.lt-sm="90"
                 viewedValue="arabicName"
               ></app-input-select>
-
               <app-input-select
                 [control]="muqarType"
-               
+                [data]="MuqarTypes"
                 [fieldName]="'نوع المقر'"
                 fxFlex="25"
                 fxFlex.sm="45"
                 fxFlex.lt-sm="90"
                 viewedValue="arabicName"
               ></app-input-select>
-            
-                <app-input-text
-                  [control]="address"
-                  [type]="'text'"
-                  [noWhiteSpace]="true"
-                  class="input-width"
-                  [fieldName]="'العنوان'"
-                  fxFlex="25"
-                  fxFlex.sm="45"
-                  fxFlex.lt-sm="90"
-                  [maxLength]="50"
-                ></app-input-text>
-
-                <app-input-text
-                  [control]="competence"
-                  [type]="'text'"
-                  [noWhiteSpace]="true"
-                  class="input-width"
-                  [fieldName]="'الكفاءة'"
-                  fxFlex="25"
-                  fxFlex.sm="45"
-                  fxFlex.lt-sm="90"
-                  [maxLength]="50"
-                ></app-input-text>
-                <app-input-text
-                  [control]="email"
-                  [type]="'text'"
-                  [noWhiteSpace]="true"
-                  class="input-width"
-                  [fieldName]="'الايميل'"
-                  fxFlex="25"
-                  fxFlex.sm="45"
-                  fxFlex.lt-sm="90"
-                  [maxLength]="50"
-                ></app-input-text>
-                <app-input-text
+              <app-input-text
+                [control]="address"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                class="input-width"
+                [fieldName]="'العنوان'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="50"
+              ></app-input-text>
+              <app-input-text
+                [control]="competence"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                class="input-width"
+                [fieldName]="'الكفاءة'"
+                fxFlex="25"
+                fFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="50"
+              ></app-input-text>
+              <app-input-text
+                [control]="email"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                class="input-width"
+                [fieldName]="'الايميل'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="50"
+              ></app-input-text>
+              <app-input-text
                 [control]="phone"
                 [type]="'text'"
                 [noWhiteSpace]="true"
@@ -100,19 +97,30 @@
                 fxFlex="25"
                 fxFlex.sm="45"
                 fxFlex.lt-sm="90"
-                [maxLength]="50"
+                [maxLength]="11"
               ></app-input-text>
               <app-input-text
-              [control]="phoneSecond"
-              [type]="'text'"
-              [noWhiteSpace]="true"
-              class="input-width"
-              [fieldName]="'رقم تليفون 2'"
-              fxFlex="25"
-              fxFlex.sm="45"
-              fxFlex.lt-sm="90"
-              [maxLength]="50"
-            ></app-input-text>
+                [control]="phoneSecond"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                class="input-width"
+                [fieldName]="'رقم تليفون 2'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="11"
+              ></app-input-text>
+              <app-input-text
+                [control]="phoneThird"
+                [type]="'text'"
+                [noWhiteSpace]="true"
+                class="input-width"
+                [fieldName]="'رقم تليفون 3'"
+                fxFlex="25"
+                fxFlex.sm="45"
+                fxFlex.lt-sm="90"
+                [maxLength]="11"
+              ></app-input-text>
               </div>
             </form>
   
@@ -131,25 +139,16 @@
                   [columns]="columns"
                   [data]="muqar"
                   [displayedColumns]="displayedColumns"
-                  [totalRows]="totalRowFirst"
                   [page]="page"
                 >
                   <ng-template let-item>
-                    <a mat-icon-button
-                      ><mat-icon matTooltip="تعديل" color="primary" (click)="fetch(item)">mode_edit</mat-icon></a
+                    <a mat-icon-button (click)="fetch(item)"
+                      ><mat-icon matTooltip="تعديل" color="primary" >mode_edit</mat-icon></a
                     >
-                    <a mat-icon-button
-                      ><mat-icon matTooltip="حذف" color="warn" (click)="delete(item.id)">delete_forever</mat-icon></a
+                    <a mat-icon-button (click)="delete(item.id)"
+                      ><mat-icon matTooltip="حذف" color="warn" >delete_forever</mat-icon></a
                     >
-                    <a mat-icon-button>
-                      <mat-icon matTooltip="اضافة قسم " color="primary" (click)="navigate(item.id)">
-                        library_add</mat-icon
-                      >
-                    </a>
                   </ng-template>
-  
-  
-                 
                 </app-data-grid>
               </div>
             </div>

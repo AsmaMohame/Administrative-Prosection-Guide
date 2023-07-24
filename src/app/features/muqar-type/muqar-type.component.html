@@ -62,21 +62,13 @@
                   [page]="page"
                 >
                   <ng-template let-item>
-                    <a mat-icon-button
-                      ><mat-icon matTooltip="تعديل" color="primary" (click)="fetch(item)">mode_edit</mat-icon></a
+                    <a mat-icon-button (click)="fetch(item)"
+                      ><mat-icon matTooltip="تعديل" color="primary" >mode_edit</mat-icon></a
                     >
-                    <a mat-icon-button
-                      ><mat-icon matTooltip="حذف" color="warn" (click)="delete(item.id)">delete_forever</mat-icon></a
+                    <a mat-icon-button (click)="delete(item.id)"
+                      ><mat-icon matTooltip="حذف" color="warn" >delete_forever</mat-icon></a
                     >
-                    <a mat-icon-button>
-                      <mat-icon matTooltip="اضافة قسم " color="primary" (click)="navigate(item.id)">
-                        library_add</mat-icon
-                      >
-                    </a>
                   </ng-template>
-  
-  
-                 
                 </app-data-grid>
               </div>
             </div>

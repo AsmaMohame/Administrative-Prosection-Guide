@@ -7,18 +7,18 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class MuqarService  extends ResourceService<Muqar> {
-  private readonly url = `${SettingsService.configurationEnvironment.api.baseUrl}muqar-type`;
-  
+export class MuqarService extends ResourceService<Muqar> {
+  private readonly url = `${SettingsService.configurationEnvironment.api.baseUrl}muqar`;
+
   constructor(protected override httpClient: HttpClient) {
     super(httpClient);
   }
 
   getResourceUrl(): string {
-    return 'muqar-type';
+    return 'muqar';
   }
 
-   toServerModel(entity: Muqar): any {
+  toServerModel(entity: Muqar): any {
     if (!entity.id) {
       return {
         version: entity.version,
@@ -30,13 +30,14 @@ export class MuqarService  extends ResourceService<Muqar> {
         email: entity.email,
         map: entity.map,
         competence: entity.competence,
-        governorate:{id: entity.governorate.id},
-        city:{id: entity.city.id},
-        muqarType:{id: entity.muqarType.id}
+        governorate: { id: entity.governorate.id },
+        city: { id: entity.city.id },
+        muqarType: { id: entity.muqarType.id }
       }
     }
     else {
       return {
+        id: entity.id,
         version: entity.version,
         name: entity.name,
         address: entity.address,
@@ -46,14 +47,14 @@ export class MuqarService  extends ResourceService<Muqar> {
         email: entity.email,
         map: entity.map,
         competence: entity.competence,
-        governorate:{id: entity.governorate.id},
-        city:{id: entity.city.id},
-        muqarType:{id: entity.muqarType.id}
+        governorate: { id: entity.governorate.id },
+        city: { id: entity.city.id },
+        muqarType: { id: entity.muqarType.id }
       }
     }
-}
+  }
 
- fromServerModel(json: any): Muqar {
-  return json;
-}
+  fromServerModel(json: any): Muqar {
+    return json;
+  }
 }

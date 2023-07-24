@@ -18,7 +18,7 @@ import { Column } from 'src/app/shared/components/data-grid/column';
 })
 export class CityComponent implements OnInit {
   displayedColumns: string[] = [];
-  displayedColumnFilter:any
+  displayedColumnFilter: any
   columns: Column[] = [];
   city!: City[];
   size: number = 10;
@@ -42,18 +42,16 @@ export class CityComponent implements OnInit {
     private cityRepository: CityService,
     private governorateRepository: GovernorateService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-  
+
     this.initForm();
     this.getAllGovernorate();
     this.tableDataService.getCity();
     this.columns = this.tableDataService.tableColumns;
     this.displayedColumns = this.tableDataService.displayColumns;
   }
-
- 
 
   initForm(): void {
     this.form = this.formBuilder.group({
@@ -75,7 +73,7 @@ export class CityComponent implements OnInit {
   getGovernorate(): void {
     this.governorateRepository.getList({ size: this.size, page: this.page }).subscribe(res => {
       if (res.pagination?.itemCount > 0) {
-      this.getAllGovernorate()
+        this.getAllGovernorate()
       }
     });
   }
@@ -83,15 +81,14 @@ export class CityComponent implements OnInit {
   getAllGovernorate(): void {
     this.governorateRepository.getList({ page: this.page, size: this.size }).subscribe(res => {
       this.governorates = res.data;
-      console.log(this.governorates)
       this.totalRows = res.pagination?.itemCount;
     });
   }
 
   getCity(): void {
-    this.cityRepository.getList({  page: this.page, size: this.size }).subscribe(res => {
+    this.cityRepository.getList({ page: this.page, size: this.size }).subscribe(res => {
       this.city = res.data;
-      this.totalRows= res.pagination?.itemCount;
+      this.totalRows = res.pagination?.itemCount;
     });
   }
 
@@ -142,7 +139,6 @@ export class CityComponent implements OnInit {
   }
 
   fetch(city: City): void {
-    this.clearForm();
     this.form.patchValue(city);
   }
 
@@ -154,6 +150,7 @@ export class CityComponent implements OnInit {
           this.cityRepository.delete(id).subscribe(_ => {
             this.message.successMessage('تم حذف بيانات  المدينة بنجاح');
             this.getCity();
+            this.clearForm();
           });
       });
   }
@@ -161,13 +158,5 @@ export class CityComponent implements OnInit {
   clearForm(): void {
     this.form.reset();
   }
-
-  navigate(id: number): void {
-    this.router.navigate([`dashboard/city`, id]);
-  }
-
-
- 
-
 
 }

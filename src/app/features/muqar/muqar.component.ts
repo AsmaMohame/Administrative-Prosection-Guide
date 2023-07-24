@@ -9,6 +9,8 @@ import { CityService } from 'src/app/domain/city/city.service';
 import { City } from 'src/app/domain/city/model/city';
 import { GovernorateService } from 'src/app/domain/governorate/governorate.service';
 import { Governorate } from 'src/app/domain/governorate/model/governorate';
+import { MuqarType } from 'src/app/domain/muqar-typt/model/muqar-type';
+import { MuqarTypeService } from 'src/app/domain/muqar-typt/muqar-type.service';
 import { Muqar } from 'src/app/domain/muqar/model/muqar';
 import { MuqarService } from 'src/app/domain/muqar/muqar.service';
 import { Column } from 'src/app/shared/components/data-grid/column';
@@ -23,25 +25,24 @@ export class MuqarComponent implements OnInit {
   displayedColumnFilter:any
   columns: Column[] = [];
   muqar!: Muqar[];
-  city:City[];
+  citys:City[];
   size: number = 10;
   page: number = 0;
-  totalRows: number = 0;
-  totalRowFirst: number = 0;
   form!: FormGroup;
   name!: FormControl;
-  address: FormControl
-  map: FormControl
-  email: FormControl
-  competence: FormControl
-  phone: FormControl
-  phoneSecond: FormControl
-  cityName: FormControl
+  address!: FormControl
+  map!: FormControl
+  email!: FormControl
+  competence!: FormControl
+  phone!: FormControl
+  phoneSecond!: FormControl
+  phoneThird!: FormControl
+  city!: FormControl
   muqarType: FormControl
   governorate!: FormControl;
-  enabled :FormControl
   submitted: boolean = false;
-  governorates!: Governorate[];
+  governorates: Governorate[];
+  MuqarTypes: MuqarType[];
   
   constructor(
     private tableDataService: TableDataService,
@@ -51,97 +52,87 @@ export class MuqarComponent implements OnInit {
     private cityRepository: CityService,
     private governorateRepository: GovernorateService,
     private muqarService : MuqarService,
-    private router: Router
+    private muqarTypeService : MuqarTypeService,
   ) {}
 
   ngOnInit(): void {
-  
     this.initForm();
     this.getGovernorate();
+    this.getMuqarType();
     this.tableDataService.getMuqar();
     this.columns = this.tableDataService.tableColumns;
     this.displayedColumns = this.tableDataService.displayColumns;
+    this.getMuqar();
   }
-
- 
 
   initForm(): void {
     this.form = this.formBuilder.group({
       id: [''],
-      version: [0],
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      address:  ['', [Validators.required]],
+      address: ['', [Validators.required, Validators.maxLength(50)]],
       map: ['', [Validators.required]],
-      email:  ['', [Validators.required]],
-      competence:  ['', [Validators.required]],
-      phone:  ['', [Validators.required]],
-      phoneSecond: ['', [Validators.required]],
-      cityName:  ['', [Validators.required]],
-      muqarType:  ['', [Validators.required]],
-      governorate: [null, Validators.required],
-      enabled: [false, Validators.required]
+      email: ['', [Validators.required, Validators.email, Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,4}$')]],
+      competence: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
+      phoneSecond: ['', [Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
+      phoneThird: ['', [Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
+      governorate: ['', Validators.required],
+      city: ['', [Validators.required]],
+      muqarType: ['', [Validators.required]]
     });
-    this.name = this.form.controls.arabicName as FormControl;
+    this.name = this.form.controls.name as FormControl;
     this.address = this.form.controls.address as FormControl;
     this.map = this.form.controls.map as FormControl;
     this.email = this.form.controls.email as FormControl;
     this.competence = this.form.controls.competence as FormControl;
     this.phone = this.form.controls.phone as FormControl;
     this.phoneSecond = this.form.controls.phoneSecond as FormControl;
-    this.cityName = this.form.controls.cityName as FormControl;
-    this.muqarType = this.form.controls.muqarType as FormControl;
-    this.enabled = this.form.controls.enabled as FormControl;
+    this.phoneThird = this.form.controls.phoneThird as FormControl;
     this.governorate = this.form.controls.governorate as FormControl;
-    this.getCity();
+    this.city = this.form.controls.city as FormControl;
+    this.muqarType = this.form.controls.muqarType as FormControl;
 
+    this.governorate.valueChanges.subscribe(res =>{
+      this.city.reset();
+      this.cityRepository.getCityByGovernorateId(res.id).subscribe(res => {
+        this.citys= res.data;
+      });
+    })
+  
   }
 
   getGovernorate(): void {
     this.governorateRepository.getList({ size: this.size, page: this.page }).subscribe(res => {
-      if (res.pagination.itemCount > 0) {
-      this.getAllGovernorate(res.pagination.itemCount)
-      }
-    });
-  }
-
-  getAllGovernorate(totalRow: number): void {
-    this.governorateRepository.getList({ page: 0, size: totalRow }).subscribe(res => {
       this.governorates = res.data;
-      this.totalRows = res.pagination.itemCount;
     });
   }
 
-  getCity(): void {
-    this.cityRepository.getList({  page: this.page, size: this.size }).subscribe(res => {
-      this.city = res.data;
-      this.totalRowFirst = res.pagination.itemCount;
+  getMuqarType(): void {
+    this.muqarTypeService.getList({  page: this.page, size: this.size }).subscribe(res => {
+      this.MuqarTypes = res.data;
     });
   }
 
   getMuqar(): void {
     this.muqarService.getList({  page: this.page, size: this.size }).subscribe(res => {
       this.muqar = res.data;
-      this.totalRowFirst = res.pagination.itemCount;
     });
   }
 
   save(): void {
-    if (!this.form.controls['enabled'].valid) {
-      this.form.controls['enabled'].setValue(false);
-    }
     if (this.form.valid) {
       this.submitted = true;
-      this.form.controls['id'].value ? this.update() : this.add();
+      this.form.controls.id.value ? this.update() : this.add();
     } else {
       this.validationMessagesService.validateAllFormFields(this.form);
     }
   }
 
   add(): void {
-    this.cityRepository.add(this.form.value).subscribe(
+    this.muqarService.add(this.form.value).subscribe(
       _ => {
-        this.message.successMessage('تم إنشاء  المدينة بنجاح');
-        this.getCity();
+        this.message.successMessage('تم إنشاء  المقر بنجاح');
+        this.getMuqar();
         this.clearForm();
         this.submitted = false;
       },
@@ -152,10 +143,10 @@ export class MuqarComponent implements OnInit {
   }
 
   update(): void {
-    this.cityRepository.update(this.form.value).subscribe(
+    this.muqarService.update(this.form.value).subscribe(
       _ => {
         this.message.successMessage('تم تعديل  المدينة بنجاح');
-        this.getCity();
+        this.getMuqar();
         this.clearForm();
         this.submitted = false;
       },
@@ -168,22 +159,22 @@ export class MuqarComponent implements OnInit {
   pageChanged(event: PageEvent): void {
     this.size = event.pageSize;
     this.page = event.pageIndex;
-    this.getCity();
+    this.getMuqar();
   }
 
-  fetch(city: City): void {
-    this.clearForm();
-    this.form.patchValue(city);
+  fetch(muqar: Muqar): void {
+    this.form.patchValue(muqar);
   }
 
   delete(id: number): void {
     this.message
-      .deleteConfirmation('هل انت متأكد من حذف بيانات  المدينة ؟', 'هذا الإجراء لا يمكن التراجع عنه')
+      .deleteConfirmation('هل انت متأكد من حذف بيانات  المقر ؟', 'هذا الإجراء لا يمكن التراجع عنه')
       .subscribe(res => {
         if (res)
           this.cityRepository.delete(id).subscribe(_ => {
-            this.message.successMessage('تم حذف بيانات  المدينة بنجاح');
-            this.getCity();
+            this.message.successMessage('تم حذف بيانات  المقر بنجاح');
+            this.getMuqar();
+            this.clearForm();
           });
       });
   }
@@ -191,13 +182,5 @@ export class MuqarComponent implements OnInit {
   clearForm(): void {
     this.form.reset();
   }
-
-  navigate(id: number): void {
-    this.router.navigate([`dashboard/city`, id]);
-  }
-
-
- 
-
 
 }

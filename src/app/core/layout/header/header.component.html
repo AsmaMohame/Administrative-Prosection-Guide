@@ -5,9 +5,8 @@
     </button>
   </div>
     <div class="left">
-        <span *ngIf="isLoggedIn" class="name ps-3">مرحبا, {{name}}</span>
-       
-        <button mat-icon-button  *ngIf="isLoggedIn"><i class="material-icons back fw-bold "
+        <span class="name ps-3">مرحبا, {{name}}</span>
+        <button mat-icon-button (click)="logout()"><i class="material-icons back fw-bold "
           title="تسجيل الخروج">logout </i>
       </button>
     </div>

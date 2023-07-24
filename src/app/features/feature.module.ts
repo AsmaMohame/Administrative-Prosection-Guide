@@ -7,9 +7,6 @@ import { CityComponent } from './city/city.component';
 import { MuqarTypeComponent } from './muqar-type/muqar-type.component';
 import { MuqarComponent } from './muqar/muqar.component';
 
-
-
-
 const routes: Routes = [
   {
     path: 'city',
@@ -34,8 +31,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CityComponent,
-             MuqarTypeComponent,
-             MuqarComponent
+    MuqarTypeComponent,
+    MuqarComponent
   ],
   imports: [
     RouterModule.forChild(routes),

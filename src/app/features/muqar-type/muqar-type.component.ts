@@ -16,7 +16,7 @@ import { Column } from 'src/app/shared/components/data-grid/column';
 })
 export class MuqarTypeComponent implements OnInit {
   displayedColumns: string[] = [];
-  displayedColumnFilter:any
+  displayedColumnFilter: any
   columns: Column[] = [];
   muqarType!: MuqarType[];
   size: number = 10;
@@ -26,12 +26,9 @@ export class MuqarTypeComponent implements OnInit {
   arabicName!: FormControl;
   englishName!: FormControl;
   enabled!: FormControl;
-  governorate!: FormControl;
   submitted: boolean = false;
   searchForm!: FormGroup;
-  cityArabicName!: FormControl;
-  cityGovernorate!: FormControl;
-  
+
   constructor(
     private tableDataService: TableDataService,
     private formBuilder: FormBuilder,
@@ -39,18 +36,14 @@ export class MuqarTypeComponent implements OnInit {
     private validationMessagesService: ValidationMessagesService,
     private muqarTypeService: MuqarTypeService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-  
     this.initForm();
-
     this.tableDataService.getMuqarType();
     this.columns = this.tableDataService.tableColumns;
     this.displayedColumns = this.tableDataService.displayColumns;
   }
-
- 
 
   initForm(): void {
     this.form = this.formBuilder.group({
@@ -58,23 +51,23 @@ export class MuqarTypeComponent implements OnInit {
       version: [0],
       arabicName: ['', [Validators.required, Validators.maxLength(50)]],
       englishName: [null, [Validators.maxLength(50)]],
+      enabled: [false, Validators.required]
     });
     this.arabicName = this.form.controls.arabicName as FormControl;
     this.englishName = this.form.controls.englishName as FormControl;
+    this.enabled = this.form.controls.enabled as FormControl;
     this.getMuqarType();
 
   }
 
-
   getMuqarType(): void {
-    this.muqarTypeService.getList({  page: this.page, size: this.size }).subscribe(res => {
+    this.muqarTypeService.getList({ page: this.page, size: this.size }).subscribe(res => {
       this.muqarType = res.data;
       this.totalRows = res.pagination?.itemCount;
     });
   }
 
   save(): void {
-   
     if (this.form.valid) {
       this.submitted = true;
       this.form.controls.id.value ? this.update() : this.add();
@@ -117,9 +110,8 @@ export class MuqarTypeComponent implements OnInit {
     this.getMuqarType();
   }
 
-  fetch(city: MuqarType): void {
-    this.clearForm();
-    this.form.patchValue(city);
+  fetch(muqarType: MuqarType): void {
+    this.form.patchValue(muqarType);
   }
 
   delete(id: number): void {
@@ -130,6 +122,7 @@ export class MuqarTypeComponent implements OnInit {
           this.muqarTypeService.delete(id).subscribe(_ => {
             this.message.successMessage('تم حذف بيانات نوع المقر  بنجاح');
             this.getMuqarType();
+            this.clearForm();
           });
       });
   }
@@ -141,4 +134,5 @@ export class MuqarTypeComponent implements OnInit {
   navigate(id: number): void {
     this.router.navigate([`dashboard/muqar-type`, id]);
   }
+
 }
