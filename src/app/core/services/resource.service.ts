@@ -76,5 +76,14 @@ export abstract class ResourceService<T> {
       })
     );
   }
+
+  del(resource: T): Observable<any> {
+    // @ts-ignore
+    return this.httpClient.delete(`${this.APIUrl}/${resource.id}`, this.toServerModel(resource)).pipe(
+      catchError(err => {
+        throw new Error(err?.message);
+      })
+    );
+  }
  
 }

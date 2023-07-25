@@ -9,6 +9,7 @@ import { MuqarComponent } from './muqar/muqar.component';
 import { AddEditMuqarComponent } from './muqar/add-edit-muqar/add-edit-muqar.component';
 
 const routes: Routes = [
+  { path: '', component: CityComponent },
   {
     path: 'city',
     component: CityComponent,

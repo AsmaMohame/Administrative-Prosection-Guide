@@ -4,7 +4,7 @@
         <div class="card">
           <div class="card-header">
             <i class="material-icons">{{ !form.controls.id.value ? 'library_add' : 'mode_edit' }}</i>
-            <p class="fs-5"> {{ !form.controls.id.value ? 'اضافه نيابة' : 'تعديل النيابة' }}</p>
+            <p class="fCairo fs-5"> {{ !form.controls.id.value ? 'اضافه نيابة' : 'تعديل النيابة' }}</p>
           </div>
           <div class="card-content">
             <form [formGroup]="form" autocomplete="off" novalidate class="p-4">
@@ -42,7 +42,8 @@
               <button class="add fCairo fs-5" (click)="save()"  fxFlex="15" fxFlex.xs="45" [disabled]="submitted">
                 {{ form.controls.id.value ? 'تعديل' : 'اضافة' }}
               </button>
-              <button class="delete-all fCairo fs-5" (click)="clearForm()" fxFlex="15" fxFlex.xs="45"> مسح </button>
+              <button class="delete-all fCairo fs-5" (click)="deleteAndClear()" fxFlex="15" fxFlex.xs="45">
+                {{ form.controls.id.value ? 'حذف' : 'مسح' }} </button>
             </div>
             <br />
            

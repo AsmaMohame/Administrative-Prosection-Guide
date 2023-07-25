@@ -137,12 +137,29 @@ export class CityComponent implements OnInit {
     this.form.patchValue(city);
   }
 
+  deleteAndClear(): void {
+    this.form.controls.id.value ? this.del() : this.clearForm();
+  }
+
   delete(id: number): void {
     this.message
       .deleteConfirmation('هل انت متأكد من حذف بيانات  المدينة ؟', 'هذا الإجراء لا يمكن التراجع عنه')
       .subscribe(res => {
         if (res)
           this.cityRepository.delete(id).subscribe(_ => {
+            this.message.successMessage('تم حذف بيانات  المدينة بنجاح');
+            this.getCity();
+            this.clearForm();
+          });
+      });
+  }
+
+  del(): void {
+    this.message
+      .deleteConfirmation('هل انت متأكد من حذف بيانات  المدينة ؟', 'هذا الإجراء لا يمكن التراجع عنه')
+      .subscribe(res => {
+        if (res)
+          this.cityRepository.del(this.form.value).subscribe(_ => {
             this.message.successMessage('تم حذف بيانات  المدينة بنجاح');
             this.getCity();
             this.clearForm();

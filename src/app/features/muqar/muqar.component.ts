@@ -116,51 +116,10 @@ export class MuqarComponent implements OnInit {
     });
   }
 
-  save(): void {
-    if (this.form.valid) {
-      this.submitted = true;
-      this.form.controls.id.value ? this.update() : this.add();
-    } else {
-      this.validationMessagesService.validateAllFormFields(this.form);
-    }
-  }
-
-  add(): void {
-    this.muqarService.add(this.form.value).subscribe(
-      _ => {
-        this.message.successMessage('تم إنشاء  المقر بنجاح');
-        this.getMuqar();
-        this.clearForm();
-        this.submitted = false;
-      },
-      error => {
-        this.submitted = false;
-      }
-    );
-  }
-
-  update(): void {
-    this.muqarService.update(this.form.value).subscribe(
-      _ => {
-        this.message.successMessage('تم تعديل  المدينة بنجاح');
-        this.getMuqar();
-        this.clearForm();
-        this.submitted = false;
-      },
-      error => {
-        this.submitted = false;
-      }
-    );
-  }
-
   pageChanged(event: PageEvent): void {
     this.size = event.pageSize;
     this.page = event.pageIndex;
     this.getMuqar();
-  }
-
-  fetch(muqar: Muqar): void {
-    this.form.patchValue(muqar);
   }
 
   delete(id: number): void {
