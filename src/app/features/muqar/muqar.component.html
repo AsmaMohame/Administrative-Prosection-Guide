@@ -24,7 +24,7 @@
                  [maxLength]="50" (keyup)="search()"></app-input-text>
 
                   <app-input-select [control]="muqarTypeName" [data]="MuqarTypes" [fieldName]="'نوع المقر'" fxFlex="25"
-                  fxFlex.sm="45" fxFlex.lt-sm="90"  (searchEvent)="search()"
+                  fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName"  (searchEvent)="search()"
                  ></app-input-select>
                 
                  <button class="delete-all fCairo fs-5" (click)="clearForm()" fxFlex="15" fxFlex.xs="45"> مسح </button>
