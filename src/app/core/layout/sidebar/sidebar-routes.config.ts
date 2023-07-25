@@ -8,7 +8,7 @@ export const ROUTES = [
 
   {
     path: 'muqar',
-    title: ' النيابات',
+    title: ' البحث عن نيابه',
     icon: 'home',
     children: null,
   },

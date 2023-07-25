@@ -55,6 +55,7 @@ import { FormControl } from '@angular/forms';
       }
       mat-label {
         font-weight: bold;
+        font-size: 18px;
         color: #8b4513;
         font-family: 'Cairo', sans-serif!important;
       }

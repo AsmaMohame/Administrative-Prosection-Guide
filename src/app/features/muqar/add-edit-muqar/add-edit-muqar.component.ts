@@ -73,15 +73,15 @@ export class AddEditMuqarComponent {
     this.blackBoxService.getMuqarById(this.muqarId).subscribe(res => {
       this.muqare = res;
       if (this.muqare) {
+        console.log(this.muqare)
         this.form.patchValue(this.muqare)
         this.name.patchValue(this.muqare.name);
         this.address.patchValue(this.muqare.address)
         this.map.patchValue(this.muqare.map)
         this.email.patchValue(this.muqare.email)
         this.competence.patchValue(this.muqare.competence)
-        
-        this.city.patchValue(this.muqare.city)
         this.governorate.patchValue(this.muqare.governorate)
+        this.city.patchValue(this.muqare.city)
         this.muqarType.patchValue(this.muqare.muqarType)
         this.phone.patchValue(this.muqare.phone)
       }
@@ -192,12 +192,29 @@ export class AddEditMuqarComponent {
     this.form.patchValue(muqar);
   }
 
+  deleteAndClear(): void {
+    this.form.controls.id.value ? this.del() : this.clearForm();
+  }
+
   delete(id: number): void {
     this.message
       .deleteConfirmation('هل انت متأكد من حذف بيانات  المقر ؟', 'هذا الإجراء لا يمكن التراجع عنه')
       .subscribe(res => {
         if (res)
           this.cityRepository.delete(id).subscribe(_ => {
+            this.message.successMessage('تم حذف بيانات  المقر بنجاح');
+            this.getMuqar();
+            this.clearForm();
+          });
+      });
+  }
+
+  del(): void {
+    this.message
+      .deleteConfirmation('هل انت متأكد من حذف بيانات  المقر ؟', 'هذا الإجراء لا يمكن التراجع عنه')
+      .subscribe(res => {
+        if (res)
+          this.muqarService.del(this.form.value).subscribe(_ => {
             this.message.successMessage('تم حذف بيانات  المقر بنجاح');
             this.getMuqar();
             this.clearForm();

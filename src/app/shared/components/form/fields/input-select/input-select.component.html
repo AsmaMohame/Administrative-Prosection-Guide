@@ -1,13 +1,13 @@
 <div class="form-group fCairo mb-3">
 <mat-label >{{ fieldName }}</mat-label>
 <mat-form-field class="fCairo mb-3 mt-3" style="width: 100%" appearance="outline">
-  <mat-select  *ngIf="!selectedValue" [compareWith]="compareFu" [formControl]="control" (ngModelChange)="search()">
-    <mat-option   [value]="''">اختر</mat-option>
-    <mat-option *ngFor="let d of data" [value]="d" [routerLink]="d.copm">{{ viewedValue ? d[viewedValue] : d }}</mat-option>
+  <mat-select class="fCairo"  *ngIf="!selectedValue" [compareWith]="compareFu" [formControl]="control" (ngModelChange)="search()">
+    <mat-option class="fCairo"   [value]="''">اختر</mat-option>
+    <mat-option  class="fCairo" *ngFor="let d of data" [value]="d" [routerLink]="d.copm">{{ viewedValue ? d[viewedValue] : d }}</mat-option>
   </mat-select>
   <mat-select class="fCairo" (ngModelChange)="search()"  *ngIf="selectedValue" [formControl]="control">
-    <mat-option  [value]="''">اختر</mat-option>
-    <mat-option *ngFor="let d of data" [value]="d[selectedValue]" [routerLink]="d.copm">{{ d[viewedValue] }}</mat-option>
+    <mat-option class="fCairo" [value]="''">اختر</mat-option>
+    <mat-option class="fCairo" *ngFor="let d of data" [value]="d[selectedValue]" [routerLink]="d.copm">{{ d[viewedValue] }}</mat-option>
   </mat-select>
   <mat-error>
     <app-control-messages [control]="control" [fieldName]="fieldName"></app-control-messages>

@@ -33,6 +33,8 @@
   mat-label {
     font-weight: bold;
     color: #8b4513;
+    font-size: 18px;
+    font-family: 'Cairo', sans-serif!important;
   }
 
 
