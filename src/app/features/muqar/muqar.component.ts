@@ -47,6 +47,7 @@ export class MuqarComponent implements OnInit {
   cityArabicName: FormControl;
   muqarTypeName: FormControl;
   governorateName: FormControl;
+  MuqarName : FormControl
   govLabel: boolean = true;
   cityLabel: boolean = true;
   muqarLabel: boolean = true;
@@ -61,10 +62,10 @@ export class MuqarComponent implements OnInit {
     private governorateRepository: GovernorateService,
     private muqarService: MuqarService,
     private muqarTypeService: MuqarTypeService,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
-    this.initForm();
     this.getGovernorate();
     this.getMuqarType();
     this.tableDataService.getMuqar();
@@ -75,52 +76,17 @@ export class MuqarComponent implements OnInit {
     this.formToSearch()
   }
 
-  initForm(): void {
-    this.form = this.formBuilder.group({
-      id: [''],
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      address: ['', [Validators.required, Validators.maxLength(50)]],
-      map: [''],
-      email: ['', [Validators.required, Validators.email, Validators.pattern('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[a-z]{2,4}$')]],
-      competence: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
-      phoneSecond: ['', [Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
-      phoneThird: ['', [Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'), Validators.maxLength(11)]],
-      governorate: ['', Validators.required],
-      city: ['', [Validators.required]],
-      muqarType: ['', [Validators.required]]
-    });
-    this.name = this.form.controls.name as FormControl;
-    this.address = this.form.controls.address as FormControl;
-    this.map = this.form.controls.map as FormControl;
-    this.email = this.form.controls.email as FormControl;
-    this.competence = this.form.controls.competence as FormControl;
-    this.phone = this.form.controls.phone as FormControl;
-    this.phoneSecond = this.form.controls.phoneSecond as FormControl;
-    this.phoneThird = this.form.controls.phoneThird as FormControl;
-    this.governorate = this.form.controls.governorate as FormControl;
-    this.city = this.form.controls.city as FormControl;
-    this.muqarType = this.form.controls.muqarType as FormControl;
-
-    this.governorate.valueChanges.subscribe(res => {
-      this.city.reset();
-      if (res) {
-        this.cityRepository.getCityByGovernorateId(res.id).subscribe(res => {
-          this.citys = res.data;
-        });
-      }
-    })
-  }
-
   formToSearch() {
     this.searchForm = this.formBuilder.group({
       city: [''],
       governorate: [''],
-      muqarType: ['']
+      muqarType: [''],
+      name: ['']
     });
     this.cityArabicName = this.searchForm.controls.city as FormControl
     this.governorateName = this.searchForm.controls.governorate as FormControl
     this.muqarTypeName = this.searchForm.controls.muqarType as FormControl
+    this.name = this.searchForm.controls.name as FormControl
 
     this.governorateName.valueChanges.subscribe(res => {
       this.cityArabicName.reset();
@@ -202,7 +168,7 @@ export class MuqarComponent implements OnInit {
       .deleteConfirmation('هل انت متأكد من حذف بيانات  المقر ؟', 'هذا الإجراء لا يمكن التراجع عنه')
       .subscribe(res => {
         if (res)
-          this.cityRepository.delete(id).subscribe(_ => {
+          this.muqarService.delete(id).subscribe(_ => {
             this.message.successMessage('تم حذف بيانات  المقر بنجاح');
             this.getMuqar();
             this.clearForm();
@@ -211,16 +177,49 @@ export class MuqarComponent implements OnInit {
   }
 
   clearForm(): void {
-    this.form.reset();
+    this.searchForm.reset();
   }
 
   arguments(): any {
-    if (this.cityArabicName?.value && this.governorateName?.value && this.muqarTypeName?.value)
+    if (this.cityArabicName?.value && this.governorateName?.value && this.muqarTypeName?.value && this.name.value)
+    return {
+      page: this.page,
+      size: this.size,
+      cityId: this.cityArabicName?.value.id,
+      governorateId: this.governorateName?.value.id,
+      muqarTypeId: this.muqarTypeName?.value.id,
+      name : this.name?.value
+    };
+    else if (this.cityArabicName?.value && this.governorateName?.value && this.muqarTypeName?.value)
       return {
         page: this.page,
         size: this.size,
         cityId: this.cityArabicName?.value.id,
         governorateId: this.governorateName?.value.id,
+        muqarTypeId: this.muqarTypeName?.value.id
+      };
+      else if (this.cityArabicName?.value && this.governorateName?.value && this.name?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        cityId: this.cityArabicName?.value.id,
+        governorateId: this.governorateName?.value.id,
+        name: this.name?.value
+      };
+      else if (this.name?.value && this.governorateName?.value && this.muqarTypeName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        name: this.name?.value,
+        governorateId: this.governorateName?.value.id,
+        muqarTypeId: this.muqarTypeName?.value.id
+      };
+      else if (this.name?.value && this.cityArabicName?.value && this.muqarTypeName?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        name: this.name?.value,
+        cityId: this.cityArabicName?.value.id,
         muqarTypeId: this.muqarTypeName?.value.id
       };
     else if (this.cityArabicName?.value && this.governorateName?.value)
@@ -244,6 +243,26 @@ export class MuqarComponent implements OnInit {
         cityId: this.cityArabicName?.value.id,
         muqarTypeId: this.muqarTypeName?.value.id
       };
+      else if (this.cityArabicName?.value && this.name?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        cityId: this.cityArabicName?.value.id,
+        name: this.name?.value
+      };
+      else if (this.governorateName?.value && this.name?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        governorateId: this.governorateName?.value.id,
+        name: this.name?.value
+      }; else if (this.muqarTypeName?.value && this.name?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        muqarTypeId: this.muqarTypeName?.value.id,
+        name: this.name?.value
+      };
     else if (this.cityArabicName?.value)
       return {
         page: this.page,
@@ -260,6 +279,11 @@ export class MuqarComponent implements OnInit {
         page: this.page,
         size: this.size,
         muqarTypeId: this.muqarTypeName?.value.id
+      }; else if (this.name?.value)
+      return {
+        page: this.page,
+        size: this.size,
+        name: this.name?.value
       };
     else return { page: this.page, size: this.size };
   }
@@ -267,6 +291,10 @@ export class MuqarComponent implements OnInit {
   search(): void {
     this.page = 0;
     this.getMuqar()
+  }
+
+  navigate(id: number): void {
+    this.router.navigate([`/edit-muqar`, id]);
   }
 
 }

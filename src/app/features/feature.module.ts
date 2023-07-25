@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { CityComponent } from './city/city.component';
 import { MuqarTypeComponent } from './muqar-type/muqar-type.component';
 import { MuqarComponent } from './muqar/muqar.component';
+import { AddEditMuqarComponent } from './muqar/add-edit-muqar/add-edit-muqar.component';
 
 const routes: Routes = [
   {
@@ -26,13 +27,26 @@ const routes: Routes = [
     data: { role: ['MANAGER', 'USER', 'ADMIN'] }
   },
 
+  { 
+    path: 'add-muqar', 
+    component: AddEditMuqarComponent,
+  
+    data: { role: ['MANAGER', 'USER', 'ADMIN'] } 
+  },
+  { 
+    path: 'edit-muqar/:id', 
+    component: AddEditMuqarComponent,
+    data: { role: ['MANAGER', 'USER', 'ADMIN'] } 
+  },
+
 ];
 
 @NgModule({
   declarations: [
     CityComponent,
     MuqarTypeComponent,
-    MuqarComponent
+    MuqarComponent,
+    AddEditMuqarComponent
   ],
   imports: [
     RouterModule.forChild(routes),

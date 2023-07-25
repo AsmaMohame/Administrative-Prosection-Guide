@@ -24,15 +24,10 @@ export class TableDataService {
       },
       {
         columnDef: 'arabicName',
-        header: 'الأسم بالعربي  ',
+        header: 'اسم المدينة',
         cell: (element: City) => element.arabicName
       },
-      {
-        columnDef: 'englishName',
-        header: 'الأسم بالانجليزى',
-        cell: (element: City) => element.englishName
-      },
-
+    
       { columnDef: 'Actions', header: '', cell: (element: City) => `` },
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
@@ -42,15 +37,10 @@ export class TableDataService {
     this.columns = [
       {
         columnDef: 'arabicName',
-        header: 'الأسم بالعربي  ',
+        header: 'نوع المقر',
         cell: (element: MuqarType) => element.arabicName
       },
-      {
-        columnDef: 'englishName',
-        header: 'الأسم بالانجليزى',
-        cell: (element: MuqarType) => element.englishName
-      },
-
+   
       { columnDef: 'Actions', header: '', cell: (element: MuqarType) => `` },
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
@@ -73,7 +63,7 @@ export class TableDataService {
       {
         columnDef: 'city',
         header: 'المدينة',
-        cell: (element: Muqar) => element.city.englishName
+        cell: (element: Muqar) => element.city.arabicName
       },
 
       {
@@ -84,14 +74,14 @@ export class TableDataService {
 
       {
         columnDef: 'competence',
-        header: 'الكفاءة ',
+        header: 'الاختصاص ',
         cell: (element: Muqar) => element.competence
       },
 
       {
         columnDef: 'address',
         header: 'العنوان',
-        cell: (element: Muqar) => element.city.englishName
+        cell: (element: Muqar) => element.address
       },
 
       {
@@ -107,10 +97,8 @@ export class TableDataService {
       },
 
       { columnDef: 'Actions', header: '', cell: (element: MuqarType) => `` },
-      { columnDef: 'Search', header: '', cell: (element: MuqarType) => `` }
     ];
     this.displayedColumns = this.columns.map(c => c.columnDef);
-    this.displayedColumnFilter = this.displayedColumns.map((x) => x + '_');
   };
 
   get tableColumns() {

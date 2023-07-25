@@ -27,13 +27,9 @@ export class CityComponent implements OnInit {
   totalRows: number = 0;
   form!: FormGroup;
   arabicName!: FormControl;
-  englishName!: FormControl;
   enabled!: FormControl;
   governorate!: FormControl;
   submitted: boolean = false;
-  searchForm!: FormGroup;
-  cityArabicName!: FormControl;
-  cityGovernorate!: FormControl;
   governorates!: Governorate[];
   option: boolean = true;
   constructor(
@@ -61,12 +57,10 @@ export class CityComponent implements OnInit {
       id: [''],
       version: [0],
       arabicName: ['', [Validators.required, Validators.maxLength(50)]],
-      englishName: [null, [Validators.maxLength(50)]],
       governorate: [null, Validators.required],
       enabled: [false, Validators.required]
     });
     this.arabicName = this.form.controls.arabicName as FormControl;
-    this.englishName = this.form.controls.englishName as FormControl;
     this.enabled = this.form.controls.enabled as FormControl;
     this.governorate = this.form.controls.governorate as FormControl;
   }
@@ -159,5 +153,6 @@ export class CityComponent implements OnInit {
   clearForm(): void {
     this.form.reset();
   }
+ 
 
 }
