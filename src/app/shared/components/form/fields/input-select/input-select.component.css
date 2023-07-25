@@ -35,9 +35,11 @@
     color: #8b4513;
   }
 
+
   :host ::ng-deep .mat-select-arrow {
     color: #8b4513 !important;
   }
+
 
   ::ng-deep .my-select .mat-select-arrow {
     color: #8b4513 !important;
@@ -50,6 +52,7 @@
 
  ::ng-deep .mat-mdc-select-value{
   font-weight: bold !important;
+  color: #8b4513 !important;
  }
 
  

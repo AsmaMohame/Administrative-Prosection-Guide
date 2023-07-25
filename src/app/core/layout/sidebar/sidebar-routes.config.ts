@@ -8,7 +8,14 @@ export const ROUTES = [
 
   {
     path: 'muqar',
-    title: ' المقرات',
+    title: ' النيابات',
+    icon: 'home',
+    children: null,
+  },
+
+  {
+    path: 'add-muqar',
+    title: ' اضافة نيابة جديدة',
     icon: 'home',
     children: null,
   },

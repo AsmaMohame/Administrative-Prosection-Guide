@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row pt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="material-icons">{{ !form.controls.id.value ? 'library_add' : 'mode_edit' }}</i>
+            <p class="fs-5"> {{ !form.controls.id.value ? 'اضافه نيابة' : 'تعديل النيابة' }}</p>
+          </div>
+          <div class="card-content">
+            <form [formGroup]="form" autocomplete="off" novalidate class="p-4">
+              <div class="me-3" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutAlign.xs="center center"
+                fxLayoutAlign.sm="center center" fxLayoutGap="3%">
+                <app-input-text [arabicCharOnly]="true" [control]="name" [type]="'text'" [noWhiteSpace]="true"
+                  [fieldName]="'اسم المقر'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
+                  [maxLength]="50"></app-input-text>
+                <app-input-select [control]="governorate" [data]="governorates" [fieldName]="'المحافظه'" fxFlex="25"
+                  fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName" ></app-input-select>
+                <app-input-select [control]="city" [data]="citys" [fieldName]="'المدينة'" fxFlex="25" fxFlex.sm="45"
+                  fxFlex.lt-sm="90" viewedValue="arabicName"></app-input-select>
+                <app-input-select [control]="muqarType" [data]="MuqarTypes" [fieldName]="'نوع المقر'" fxFlex="25"
+                  fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName"></app-input-select>
+                <app-input-text [control]="address" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'العنوان'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90" [maxLength]="50"></app-input-text>
+                <app-input-text [control]="competence" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'الاختصاص'" fxFlex="25" fFlex.sm="45" fxFlex.lt-sm="90" [maxLength]="50"></app-input-text>
+                <app-input-text [control]="email" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'الايميل'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90" [maxLength]="50"></app-input-text>
+                <app-input-text [control]="phone" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'رقم تليفون 1'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
+                  [maxLength]="11"></app-input-text>
+                <app-input-text [control]="phoneSecond" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'رقم تليفون 2'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
+                  [maxLength]="11"></app-input-text>
+                <app-input-text [control]="phoneThird" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'رقم تليفون 3'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
+                  [maxLength]="11"></app-input-text>
+                <app-input-text [control]="map" [type]="'text'" [noWhiteSpace]="true" class="input-width"
+                  [fieldName]="'الخريطة'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90" [maxLength]="11"></app-input-text>
+              </div>
+            </form>
+            <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="3%">
+              <button class="add fCairo fs-5" (click)="save()"  fxFlex="15" fxFlex.xs="45" [disabled]="submitted">
+                {{ form.controls.id.value ? 'تعديل' : 'اضافة' }}
+              </button>
+              <button class="delete-all fCairo fs-5" (click)="clearForm()" fxFlex="15" fxFlex.xs="45"> مسح </button>
+            </div>
+            <br />
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

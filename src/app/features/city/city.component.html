@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-header">
           <i class="material-icons">{{ !form.controls.id.value ? 'library_add' : 'mode_edit' }}</i>
-          <p> {{ !form.controls.id.value ? 'اضافه مدينة' : 'تعديل مدينة' }}</p>
+          <p class="fs-5"> {{ !form.controls.id.value ? 'اضافه مدينة' : 'تعديل مدينة' }}</p>
         </div>
         <div class="card-content mt-5">
           <form [formGroup]="form" autocomplete="off" novalidate class="p-4">
@@ -13,19 +13,16 @@
               <app-input-select [control]="governorate" [data]="governorates" [fieldName]="'المحافظه'" fxFlex="25"
                 fxFlex.sm="45" fxFlex.lt-sm="90" viewedValue="arabicName" [option]="option"></app-input-select>
               <app-input-text [arabicCharOnly]="true" [control]="arabicName" [type]="'text'" [noWhiteSpace]="true"
-                [fieldName]="'الاسم بالعربي'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
-                [maxLength]="50"></app-input-text>
-              <app-input-text [englishCharOnly]="true" [control]="englishName" [type]="'text'" [noWhiteSpace]="true"
-                class="input-width" [fieldName]="'الاسم بالانجليزي'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
+                [fieldName]="'اسم المدينة'" fxFlex="25" fxFlex.sm="45" fxFlex.lt-sm="90"
                 [maxLength]="50"></app-input-text>
             </div>
           </form>
 
           <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="3%">
-            <button (click)="save()" color="Basic" mat-raised-button fxFlex="15" fxFlex.xs="45" [disabled]="submitted">
+            <button class="add fCairo fs-5" (click)="save()" fxFlex="15" fxFlex.xs="45" [disabled]="submitted">
               {{ form.controls.id.value ? 'تعديل' : 'اضافة' }}
             </button>
-            <button (click)="clearForm()" color="warn" mat-raised-button fxFlex="15" fxFlex.xs="45"> مسح </button>
+            <button class="delete-all fCairo fs-5" (click)="clearForm()" fxFlex="15" fxFlex.xs="45"> مسح </button>
           </div>
 
           <br />
@@ -35,9 +32,9 @@
                 [displayedColumns]="displayedColumns" [displayedColumnFilter]="displayedColumnFilter"
                 [totalRows]="totalRows" [page]="page">
                 <ng-template let-item>
-                  <a mat-icon-button (click)="fetch(item)"><mat-icon matTooltip="تعديل"
+                  <a mat-icon-button (click)="fetch(item)" matTooltip="تعديل"><mat-icon class="icon-edit fs-5 " matTooltip="تعديل"
                       color="primary">mode_edit</mat-icon></a>
-                  <a mat-icon-button (click)="delete(item.id)"><mat-icon matTooltip="حذف"
+                  <a mat-icon-button (click)="delete(item.id)" matTooltip="حذف"><mat-icon class="delete-icon fs-5 mt-1 " matTooltip="حذف"
                       color="warn">delete_forever</mat-icon></a>
                 </ng-template>
               </app-data-grid>

@@ -3,6 +3,7 @@ import { ResourceService } from 'src/app/core/services/resource.service';
 import { Muqar } from './model/muqar';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +48,8 @@ export class MuqarService extends ResourceService<Muqar> {
         email: entity.email,
         map: entity.map,
         competence: entity.competence,
-        governorate: { id: entity.governorate.id },
-        city: { id: entity.city.id },
+        governorate:{id:entity.governorate.id },
+        city: { id:entity.city.id },
         muqarType: { id: entity.muqarType.id }
       }
     }
@@ -57,4 +58,6 @@ export class MuqarService extends ResourceService<Muqar> {
   fromServerModel(json: any): Muqar {
     return json;
   }
+
+ 
 }
